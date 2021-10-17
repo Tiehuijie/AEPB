@@ -1,4 +1,7 @@
-package com.example.AEPB;
+package com.example.AEPB.airCoin;
+
+import com.example.AEPB.airCoin.exception.IllegalAirCoinAmountTypeException;
+import com.example.AEPB.airCoin.exception.IllegalAirCoinTypeException;
 
 import java.util.Objects;
 
