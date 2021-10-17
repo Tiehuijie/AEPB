@@ -1,5 +1,8 @@
 package com.example.AEPB;
 
+import com.example.AEPB.airCoin.AirCoin;
+import com.example.AEPB.airCoin.exception.IllegalAirCoinAmountTypeException;
+import com.example.AEPB.airCoin.exception.IllegalAirCoinTypeException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
