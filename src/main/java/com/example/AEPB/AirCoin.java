@@ -8,7 +8,8 @@ public class AirCoin {
     public static final int MAX_AMOUNT = 1000000000;
     public static final int MIN_AMOUNT = 0;
 
-    public  AirCoin() { }
+    public AirCoin() {
+    }
 
     public AirCoin(int amount) {
         if (amount < MIN_AMOUNT || amount > MAX_AMOUNT) {
@@ -21,7 +22,8 @@ public class AirCoin {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (getClass() != o.getClass()) throw new IllegalAirCoinTypeException("amount type is int can not be " + o.getClass());
+        if (getClass() != o.getClass())
+            throw new IllegalAirCoinTypeException("amount type is int can not be " + o.getClass());
         AirCoin airCoin = (AirCoin) o;
         return amount == airCoin.amount;
     }
