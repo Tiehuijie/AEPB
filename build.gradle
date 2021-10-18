@@ -18,6 +18,7 @@ ext {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.testcontainers:junit-jupiter'
 	implementation 'org.projectlombok:lombok:1.18.16'
