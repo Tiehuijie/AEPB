@@ -3,6 +3,7 @@ package com.example.AEPB.parkingLot;
 import com.example.AEPB.parkingLot.dto.ParkingTicket;
 import com.example.AEPB.parkingLot.dto.Vehicle;
 import com.example.AEPB.parkingLot.exception.CanNotGetTicketException;
+import com.example.AEPB.parkingLot.exception.CanNotGetVehicleException;
 import lombok.*;
 import org.apache.commons.lang3.StringUtils;
 
@@ -20,7 +21,14 @@ public class ParkingLot {
     private Map<ParkingTicket, Vehicle> parkingTicketAndVehicleMappings = new HashMap<>();
 
     public Vehicle pickUpCar(ParkingTicket parkingTicket){
-        return parkingTicketAndVehicleMappings.remove(parkingTicket);
+        if (isNull(parkingTicket)) {
+            throw new CanNotGetVehicleException("can not get vehicle when ticket is null");
+        }
+        Vehicle vehicle = parkingTicketAndVehicleMappings.remove(parkingTicket);
+        if (isNull(vehicle)) {
+            throw new CanNotGetVehicleException("can not get vehicle when ticket is illegal");
+        }
+        return vehicle;
     }
 
     public ParkingTicket parkCar(Vehicle vehicle){
@@ -28,7 +36,7 @@ public class ParkingLot {
             throw new CanNotGetTicketException("can not get ticket when vehicle is null");
         }
         if (parkingTicketAndVehicleMappings.size() == MAX_PARKING_VEHICLE_NUMBER) {
-            return null;
+            throw new CanNotGetTicketException("can not get ticket when parking lot is full");
         }
         ParkingTicket parkingTicket = new ParkingTicket(UUID.randomUUID().toString());
         parkingTicketAndVehicleMappings.put(parkingTicket, vehicle);

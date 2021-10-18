@@ -3,6 +3,7 @@ package com.example.AEPB.parkingLot;
 import com.example.AEPB.parkingLot.dto.ParkingTicket;
 import com.example.AEPB.parkingLot.dto.Vehicle;
 import com.example.AEPB.parkingLot.exception.CanNotGetTicketException;
+import com.example.AEPB.parkingLot.exception.CanNotGetVehicleException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +12,6 @@ import java.util.Map;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ParkingLotTest {
@@ -79,7 +79,7 @@ class ParkingLotTest {
         parkingLot.setParkingTicketAndVehicleMappings(parkingTicketAndVehicleMappings);
         Vehicle vehicle = new Vehicle("123");
 
-        assertNull(parkingLot.parkCar(vehicle));
+        assertThrows(CanNotGetTicketException.class, () -> parkingLot.parkCar(vehicle));
     }
 
     /**
@@ -173,9 +173,7 @@ class ParkingLotTest {
     void should_get_vehicle_by_parking_ticket_failed_when_pick_up_vehicle_given_ticket_has_been_used() {
         ParkingTicket parkingTicket = new ParkingTicket("ticketNumber");
 
-        Vehicle vehicleGetFromLot = parkingLot.pickUpCar(parkingTicket);
-
-        assertEquals(null, vehicleGetFromLot);
+        assertThrows(CanNotGetVehicleException.class, () -> parkingLot.pickUpCar(parkingTicket));
     }
 
     /**
@@ -188,9 +186,7 @@ class ParkingLotTest {
     void should_get_vehicle_by_parking_ticket_failed_when_pick_up_vehicle_given_ticket_is_null() {
         ParkingLot parkingLot = new ParkingLot();
 
-        Vehicle vehicleGetFromLot = parkingLot.pickUpCar(null);
-
-        assertEquals(null, vehicleGetFromLot);
+        assertThrows(CanNotGetVehicleException.class, () -> parkingLot.pickUpCar(null));
     }
 
     /**
@@ -201,10 +197,7 @@ class ParkingLotTest {
      */
     @Test
     void should_get_vehicle_by_parking_ticket_failed_when_pick_up_vehicle_given_ticket_ticket_number_is_null() {
-
-        Vehicle vehicleGetFromLot = parkingLot.pickUpCar(new ParkingTicket());
-
-        assertEquals(null, vehicleGetFromLot);
+        assertThrows(CanNotGetVehicleException.class, () -> parkingLot.pickUpCar(new ParkingTicket()));
     }
 
 }
