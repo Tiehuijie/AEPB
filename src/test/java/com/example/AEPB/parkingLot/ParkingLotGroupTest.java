@@ -32,7 +32,7 @@ class ParkingLotGroupTest {
         Vehicle vehicle = new Vehicle();
         ParkingTicket parkingTicket = parkingLotGroup.parkingByParkingBoy(vehicle);
 
-        assertEquals(0, parkingTicket.getParkingLotNumber());
+        assertEquals(1, parkingTicket.getParkingLotNumber());
         assertEquals(vehicle, parkingLotGroup.getVehicle(parkingTicket));
     }
 
@@ -48,7 +48,7 @@ class ParkingLotGroupTest {
         Vehicle vehicle = new Vehicle();
         ParkingTicket parkingTicket = parkingLotGroup.parkingByParkingBoy(vehicle);
 
-        assertEquals(0, parkingTicket.getParkingLotNumber());
+        assertEquals(1, parkingTicket.getParkingLotNumber());
         assertEquals(vehicle, parkingLotGroup.getVehicle(parkingTicket));
     }
 
@@ -64,7 +64,7 @@ class ParkingLotGroupTest {
         Vehicle vehicle = new Vehicle();
         ParkingTicket parkingTicket = parkingLotGroup.parkingByParkingBoy(vehicle);
 
-        assertEquals(1, parkingTicket.getParkingLotNumber());
+        assertEquals(2, parkingTicket.getParkingLotNumber());
         assertEquals(vehicle, parkingLotGroup.getVehicle(parkingTicket));
     }
 
@@ -85,7 +85,7 @@ class ParkingLotGroupTest {
         Vehicle vehicle = new Vehicle();
         ParkingTicket parkingTicket = parkingLotGroup.parkingByParkingBoy(vehicle);
 
-        assertEquals(0, parkingTicket.getParkingLotNumber());
+        assertEquals(1, parkingTicket.getParkingLotNumber());
         assertEquals(vehicle, parkingLotGroup.getVehicle(parkingTicket));
     }
 
@@ -113,6 +113,47 @@ class ParkingLotGroupTest {
     void should_throw_can_not_get_ticket_exception_when_parking_by_boy_given_parking_lot_is_empty_and_vehicle_is_null() {
         assertThrows(CanNotGetTicketException.class, () ->  parkingLotGroup.parkingByParkingBoy(null));
     }
+
+    /**
+     *  * 测试策略：
+     *      * given: 所有停车场为空，
+     *      * when: 用户自己停车
+     *      * then: 停车成功，并且拿到停车票
+     */
+    @Test
+    void should_get_ticket_and_parking_success_when_parking_by_self_given_all_parking_lot_is_null() {
+        Vehicle vehicle = new Vehicle();
+        ParkingTicket parkingTicket = parkingLotGroup.parkingBySelf(vehicle, 1);
+
+        assertEquals(1, parkingTicket.getParkingLotNumber());
+        assertEquals(vehicle, parkingLotGroup.getVehicle(parkingTicket));
+    }
+
+    /**
+     *  * 测试策略：
+     *      * given: 第一个停车厂已满 ，用户想停到第一个停车场
+     *      * when: 用户自己停车，
+     *      * then: 停车失败，抛出CanNotGetTicketException异常
+     */
+    @Test
+    void should_throw_can_not_get_ticket_exception_when_parking_by_self_given_parking_lot_one_is_full_and_user_want_parking_on_one() {
+        parkingSomeVehicle(50);
+        Vehicle vehicle = new Vehicle();
+
+       assertThrows(CanNotGetTicketException.class, () -> parkingLotGroup.parkingBySelf(vehicle, 1));
+    }
+
+    /**
+     *  * 测试策略：
+     *      * given: 所有停车场为空，用户没有车，想占用停车场位置
+     *      * when: 用户自己停车
+     *      * then: 停车失败，抛出CanNotGetTicketException异常
+     */
+    @Test
+    void should_throw_can_not_get_ticket_exception_when_parking_by_self_given_parking_lot_is_empty_and_user_want_parking_null_vehicle() {
+        assertThrows(CanNotGetTicketException.class, () -> parkingLotGroup.parkingBySelf(null, 1));
+    }
+
 
     /**
      * 测试策略：
