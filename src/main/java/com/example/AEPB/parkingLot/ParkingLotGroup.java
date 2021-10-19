@@ -15,6 +15,7 @@ import static java.util.Objects.isNull;
 @Getter
 public class ParkingLotGroup {
     public static final int MAX_PARKING_LOT_NUMBER = 10;
+    public static final int MIN_PARKING_LOT_NUMBER = 0;
     private final Map<Integer, ParkingLot> parkingLots = new HashMap<>();
     public static final int MAX_PARKING_VEHICLE_NUMBER = 50;
 
@@ -32,8 +33,15 @@ public class ParkingLotGroup {
                                 .getParkingTicketAndVehicleMappings()
                                 .size() < MAX_PARKING_VEHICLE_NUMBER)
                 .findFirst()
-                .map(parkingLotEntry -> parkingLotEntry.getValue().parkingCar(vehicle, parkingLotEntry.getKey()))
+                .map(parkingLotEntry -> parkingLotEntry.getValue().parkingCar(vehicle, parkingLotEntry.getKey()+1))
                 .orElseThrow(() -> new CanNotGetTicketException("can not get ticket for all parking lot is full"));
+    }
+
+    public ParkingTicket parkingBySelf(Vehicle vehicle, int parkingLotNumber){
+        if (parkingLotNumber > MAX_PARKING_LOT_NUMBER || parkingLotNumber < MIN_PARKING_LOT_NUMBER) {
+            throw  new CanNotGetTicketException("can not get ticket for parking number is illegal");
+        }
+        return parkingLots.get(parkingLotNumber - 1).parkingCar(vehicle, parkingLotNumber);
     }
 
     public Vehicle getVehicle(ParkingTicket parkingTicket) {
