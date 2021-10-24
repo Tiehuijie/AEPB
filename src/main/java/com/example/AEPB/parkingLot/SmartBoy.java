@@ -20,6 +20,9 @@ public class SmartBoy {
         if (isNull(parkingTicket)) {
             throw new CanNotGetVehicleException("can not get vehicle when ticket is null");
         }
+        if (isNull(parkingTicket.getParkingLotNumber())) {
+            throw new CanNotGetVehicleException("can not get vehicle when ticket is null");
+        }
         final int parkingLotNumber = parkingTicket.getParkingLotNumber();
         return parkingLotGroup.getParkingLots().get(parkingLotNumber).pickUpCar(parkingTicket);
     }

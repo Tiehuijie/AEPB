@@ -43,7 +43,11 @@ public class ParkingLot implements Comparable<ParkingLot> {
         if (isNull(parkingTicket)) {
             throw new CanNotGetVehicleException("can not get vehicle when ticket is null");
         }
-        return parkingTicketAndVehicleMappings.remove(parkingTicket);
+        Vehicle vehicle = parkingTicketAndVehicleMappings.remove(parkingTicket);
+        if (isNull(vehicle)) {
+            throw new CanNotGetVehicleException("can not get vehicle when ticket is illegal");
+        }
+        return vehicle;
     }
 
     public ParkingTicket parkingCar(Vehicle vehicle){
