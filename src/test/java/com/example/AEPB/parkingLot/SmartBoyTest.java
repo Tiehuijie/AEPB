@@ -3,6 +3,7 @@ package com.example.AEPB.parkingLot;
 import com.example.AEPB.parkingLot.dto.ParkingTicket;
 import com.example.AEPB.parkingLot.dto.Vehicle;
 import com.example.AEPB.parkingLot.exception.CanNotGetTicketException;
+import com.example.AEPB.parkingLot.exception.CanNotGetVehicleException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -97,6 +98,57 @@ class SmartBoyTest {
         for (int i = 0; i < parkingNumber; i++) {
             smartBoy.parking(new Vehicle());
         }
+    }
+
+        /**
+     * 测试策略：
+     * given: 用户持有之前在该停车场存车的票根
+     * when: 取车
+     * then: 用户取到自己的车
+     */
+    @Test
+    void should_get_vehicle_by_parking_ticket_success_when_pick_up_vehicle_given_ticket_is_legal() {
+        Vehicle readyForParkingVehicle =  new Vehicle();
+        ParkingTicket parkingTicket = smartBoy.parking(readyForParkingVehicle);
+
+        Vehicle vehicle = smartBoy.getVehicle(parkingTicket);
+
+        assertEquals(vehicle, readyForParkingVehicle);
+    }
+
+    /**
+     * 测试策略：
+     * given: 用户持有已经取过车的票根
+     * when: 取车
+     * then: 取不到车
+     */
+    @Test
+    void should_get_vehicle_by_parking_ticket_failed_when_pick_up_vehicle_given_ticket_has_been_used() {
+        ParkingTicket parkingTicket = new ParkingTicket(1);
+
+        assertThrows(CanNotGetVehicleException.class, () -> smartBoy.getVehicle(parkingTicket));
+    }
+
+    /**
+     * 测试策略：
+     * given: 用户没有票根
+     * when: 取车
+     * then: 取不到车
+     */
+    @Test
+    void should_get_vehicle_by_parking_ticket_failed_when_pick_up_vehicle_given_ticket_is_null() {
+        assertThrows(CanNotGetVehicleException.class, () -> smartBoy.getVehicle(null));
+    }
+
+    /**
+     * 测试策略：
+     * given: 用户票根ticketNumber为空
+     * when: 取车
+     * then: 取不到车
+     */
+    @Test
+    void should_get_vehicle_by_parking_ticket_failed_when_pick_up_vehicle_given_ticket_ticket_number_is_null() {
+        assertThrows(CanNotGetVehicleException.class, () -> smartBoy.getVehicle(new ParkingTicket()));
     }
 
 }
