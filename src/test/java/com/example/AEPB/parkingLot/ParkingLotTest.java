@@ -7,7 +7,10 @@ import com.example.AEPB.parkingLot.exception.CanNotGetVehicleException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -176,5 +179,4 @@ class ParkingLotTest {
     void should_get_vehicle_by_parking_ticket_failed_when_pick_up_vehicle_given_ticket_ticket_number_is_null() {
         assertThrows(CanNotGetVehicleException.class, () -> parkingLot.pickUpCar(new ParkingTicket()));
     }
-
 }

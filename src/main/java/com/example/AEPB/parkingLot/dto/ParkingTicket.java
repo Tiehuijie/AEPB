@@ -1,7 +1,9 @@
 package com.example.AEPB.parkingLot.dto;
 
 import com.example.AEPB.parkingLot.exception.IllegalParkingLotNumber;
+import lombok.Getter;
 
+@Getter
 public class ParkingTicket {
     public static final int MAX_PARKING_LOT_NUMBER = 10;
     private int parkingLotNumber;
@@ -16,7 +18,4 @@ public class ParkingTicket {
         this.parkingLotNumber = parkingLotNumber;
     }
 
-    public int getParkingLotNumber() {
-        return parkingLotNumber;
-    }
 }
