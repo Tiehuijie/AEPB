@@ -16,7 +16,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class ParkingLotTest {
+class NewParkingLotTest {
     private ParkingLot parkingLot;
 
     @BeforeEach

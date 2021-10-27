@@ -5,16 +5,17 @@ import com.example.AEPB.parkingLot.dto.Vehicle;
 import com.example.AEPB.parkingLot.exception.CanNotGetTicketException;
 import com.example.AEPB.parkingLot.exception.CanNotGetVehicleException;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
 import static java.util.Objects.isNull;
 
-public class ParkingLot implements Comparable<ParkingLot>{
+public class NewParkingLot implements Comparable<NewParkingLot>{
     private int maxParkingVehicleNumber;
     private Map<ParkingTicket, Vehicle> parkingTicketAndVehicleMappings = new HashMap<>();
 
-    public ParkingLot(int maxParkingVehicleNumber) {
+    public NewParkingLot(int maxParkingVehicleNumber) {
         this.maxParkingVehicleNumber = maxParkingVehicleNumber;
     }
 
@@ -46,16 +47,14 @@ public class ParkingLot implements Comparable<ParkingLot>{
         return maxParkingVehicleNumber - parkingTicketAndVehicleMappings.size();
     }
 
-    public float getParkingSpaceOccupancy() {
-        if (parkingTicketAndVehicleMappings.size() == 0) {
-            return 1f;
-        }
-        return 1-(float)(parkingTicketAndVehicleMappings.size()/maxParkingVehicleNumber);
+    public String getParkingSpaceOccupancy() {
+        DecimalFormat df=new DecimalFormat("0.00");
+        return df.format((float)parkingTicketAndVehicleMappings.size()/(float)maxParkingVehicleNumber);
     }
 
 
     @Override
-    public int compareTo(ParkingLot parkingLot) {
-        return parkingLot.getParkingLotRemainSpace()  - getParkingLotRemainSpace();
+    public int compareTo(NewParkingLot newParkingLot) {
+        return newParkingLot.getParkingLotRemainSpace()  - getParkingLotRemainSpace();
     }
 }

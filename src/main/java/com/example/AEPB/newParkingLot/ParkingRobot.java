@@ -9,21 +9,21 @@ import java.util.List;
 import java.util.Optional;
 
 public class ParkingRobot {
-    private final List<ParkingLot> parkingLots;
+    private final List<NewParkingLot> newParkingLots;
 
-    public ParkingRobot(List<ParkingLot> parkingLots) {
-        this.parkingLots = parkingLots;
+    public ParkingRobot(List<NewParkingLot> newParkingLots) {
+        this.newParkingLots = newParkingLots;
     }
 
     public ParkingTicket parkingVehicle(Vehicle vehicle) {
         return Optional.ofNullable(getParkingLot())
-                .map(parkingLot -> parkingLot.parkingVehicle(vehicle))
+                .map(newParkingLot -> newParkingLot.parkingVehicle(vehicle))
                 .orElseThrow(() ->  new CanNotGetTicketException("can not get ticket when parking lot is null"));
     }
 
-    public ParkingLot getParkingLot() {
-        return parkingLots.stream()
-                .min(Comparator.comparing(ParkingLot::getParkingSpaceOccupancy))
+    private NewParkingLot getParkingLot() {
+        return newParkingLots.stream()
+                .min(Comparator.comparing(NewParkingLot::getParkingSpaceOccupancy))
                 .orElse(null);
     }
 }

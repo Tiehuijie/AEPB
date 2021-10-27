@@ -14,7 +14,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ParkingLotGroupTest {
+class NewParkingLotGroupTest {
     private ParkingLotGroup parkingLotGroup;
 
     @BeforeEach

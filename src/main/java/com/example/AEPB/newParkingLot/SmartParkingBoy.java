@@ -4,17 +4,17 @@ import java.util.Collections;
 import java.util.List;
 
 public class SmartParkingBoy extends ParkingBoy{
-    private final List<ParkingLot> parkingLots;
+    private final List<NewParkingLot> newParkingLots;
 
-    public SmartParkingBoy(List<ParkingLot> parkingLots) {
-        super(parkingLots);
-        this.parkingLots = parkingLots;
+    public SmartParkingBoy(List<NewParkingLot> newParkingLots) {
+        super(newParkingLots);
+        this.newParkingLots = newParkingLots;
     }
 
-    public ParkingLot getParkingLot() {
-        Collections.sort(parkingLots);
-        if (!parkingLots.isEmpty()) {
-            return parkingLots.get(0);
+    public NewParkingLot getParkingLot() {
+        Collections.sort(newParkingLots);
+        if (!newParkingLots.isEmpty()) {
+            return newParkingLots.get(0);
         }
         return null;
     }
